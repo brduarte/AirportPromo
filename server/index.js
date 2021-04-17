@@ -1,34 +1,44 @@
-require('dotenv').config()
-const axios = require('axios')
+import dotenv from 'dotenv'
+import axios from "axios";
 
+dotenv.config()
 
-function start() {
+start()
+
+async function start() {
+
+    await getCombinationAirPort()
 
 }
 
 async function getCombinationAirPort() {
-
-    await fetchMockupAirPort('/airports')
-
+    try {
+        const response = await fetchMockupAirPort('airports').get()
+    } catch (error) {
+        console.log(error.response.data)
+    }
 }
 
 function fetchMockupAirPort(uri) {
     try {
         let api = axios.create({
-            baseURL: `${prosses.env.API_MOCKUP_BASE_URL}/${uri}/${prosses.env.API_MOCKUP_BASE_URL}`,
-            timeout: 1000,
+            baseURL: `${process.env.API_MOCKUP_BASE_URL}/${uri}/${process.env.API_MOCKUP_AIRPORT_KEY}`,
         })
 
         api.interceptors.request.use(config => {
             config.headers = {
                 ...config.headers,
-                auth:{
-                    username: prosses.env.API_MOCKUP_AIRPORT_USERNAME,
-                    password: prosses.env.API_MOCKUP_AIRPORT_PASSWORD
-                }
             };
+
+            config.auth = {
+                username: process.env.API_MOCKUP_AIRPORT_USERNAME,
+                password: process.env.API_MOCKUP_AIRPORT_PASSWORD
+            }
+
             return config;
         });
+
+        return api
 
     } catch (error) {
         console.error(error)
