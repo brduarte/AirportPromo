@@ -6,15 +6,19 @@ dotenv.config()
 start()
 
 async function start() {
-    await getCombinationAirPort()
+    const airports = await getCombinationAirPort()
+
+    let km = getDistanceFromLatLonInKm(pointA, pointB)
+    console.log(km);
 }
+
 
 async function getCombinationAirPort() {
     try {
         const { data } = await fetchMockupAirPort('airports').get()
 
         const airports = convertObjectToArray(data)
-        const combinationsAirPorts = permutations(airports.slice(0, 10))
+        const combinationsAirPorts = permutations(airports.slice(0, 2))
 
         return combinationsAirPorts;
 
@@ -57,17 +61,16 @@ function permutations(airports) {
     } else {
 
         for (var i = 0; i < airports.length; i++) {
-            let firstChar = airports[i];
-            let otherChars = airports.slice(0, i).concat(airports.slice(i + 1));
-            let otherPermutations = permutations(otherChars);
+            let firstAirport = airports[i];
+            let otherAirport = airports.slice(0, i).concat(airports.slice(i + 1));
+            let otherPermutations = permutations(otherAirport);
 
             for (var j = 0; j < otherPermutations.length; j++) {
-                result.push([firstChar].concat(otherPermutations[j]));
+                result.push([firstAirport].concat(otherPermutations[j]));
             }
         }
     }
     return result;
-
 }
 
 
@@ -80,4 +83,24 @@ function convertObjectToArray(airports) {
     }
 
     return result;
+}
+
+function getDistanceFromLatLonInKm(pointA = { lat: '', lon: '' }, pointB = { lat: '', lon: '' }) {
+    const raio = 6371; // Raio da Terra em KM
+    let dLat = deg2rad(pointB.lat - pointA.lat);
+    let dLon = deg2rad(pointB.lat - pointA.lat);
+
+    var a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(deg2rad(pointA.lat)) * Math.cos(deg2rad(pointB.lat)) *
+        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    var distancia = raio * c; // Distance in km
+
+    // Converte o número em graus ao equivalente em radianos
+    function deg2rad(deg) {
+        return deg * (Math.PI / 180)
+    }
+
+    return Math.round(distancia);
 }
