@@ -6,11 +6,11 @@ dotenv.config()
 start()
 
 async function start() {
-   
-    const { data } = await fetchMockupAirPort('airports').get()
+
+    const { data } = await fetchMockupAirPortAPI('airports').get()
     const airports = convertObjectToArray(data)
     const combinationsAirPorts = flightProcessor(airports.slice(0, 3))
-console.log(combinationsAirPorts);
+    console.log(combinationsAirPorts);
 
 }
 
@@ -35,8 +35,12 @@ function flightProcessor(airports) {
     return result;
 }
 
-async function getScheduledFlights(airportA, airportB) {
+async function getScheduledFlights(airportA, airportB, data) {
+    try {
 
+    } catch (error) {
+        throw error;
+    }
 }
 
 // O sacrificio da performance :(
@@ -70,7 +74,7 @@ function getDistanceFromLatLonInKm(pointA = { lat: '', lon: '' }, pointB = { lat
     return Math.round(distancia);
 }
 
-function fetchMockupAirPort(uri) {
+function fetchMockupAirPortAPI(uri) {
     try {
         let api = axios.create({
             baseURL: `${process.env.API_MOCKUP_BASE_URL}/${uri}/${process.env.API_MOCKUP_AIRPORT_KEY}`,
