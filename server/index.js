@@ -6,38 +6,16 @@ dotenv.config()
 start()
 
 async function start() {
-    const airportsCombination = await getCombinationAirPort()
-    const flights = await getScheduledFlights(airportsCombination)
+   
+    const { data } = await fetchMockupAirPort('airports').get()
+    const airports = convertObjectToArray(data)
+    const combinationsAirPorts = flightProcessor(airports.slice(0, 3))
+console.log(combinationsAirPorts);
 
-    console.log(airportsCombination);
 }
 
-async function getScheduledFlights(airportsCombination = []) {
-    for (const combination of airportsCombination) {
 
-        for (const airport of combination) {
-            // console.log(airport);
-            // const { data } = fetchMockupAirPort('search').get(`${airport.}`)
-        }
-
-    }
-}
-
-async function getCombinationAirPort() {
-    try {
-        const { data } = await fetchMockupAirPort('airports').get()
-
-        const airports = convertObjectToArray(data)
-        const combinationsAirPorts = combineAirports(airports.slice(0, 3))
-
-        return combinationsAirPorts;
-
-    } catch (error) {
-        console.log(error)
-    }
-}
-
-function combineAirports(airports) {
+function flightProcessor(airports) {
     let result = [];
 
     if (airports.length === 0) {
@@ -55,6 +33,10 @@ function combineAirports(airports) {
         }
     }
     return result;
+}
+
+async function getScheduledFlights(airportA, airportB) {
+
 }
 
 // O sacrificio da performance :(
