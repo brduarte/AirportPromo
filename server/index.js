@@ -1,5 +1,6 @@
 import dotenv from 'dotenv'
 import axios from "axios";
+import moment from "moment"
 
 dotenv.config()
 
@@ -9,34 +10,54 @@ async function start() {
 
     const { data } = await fetchMockupAirPortAPI('airports').get()
     const airports = convertObjectToArray(data)
-    const combinationsAirPorts = flightProcessor(airports.slice(0, 3))
+    const combinationsAirPorts = await flightProcessor(airports.slice(0, 3))
     console.log(combinationsAirPorts);
 
 }
 
 
-function flightProcessor(airports) {
+async function flightProcessor(airports) {
+    try {
+
+    } catch (error) {
+
+    }
     let result = [];
 
     if (airports.length === 0) {
         result.push([]);
     } else {
         for (var i = 0; i < airports.length; i++) {
-            let firstAirport = airports[i];
+            let airportA = airports[i];
 
             for (var j = 0; j < airports.length; j++) {
-                if (airports[j].iata === firstAirport.iata) {
+
+                if (airports[j].iata === airportA.iata) {
                     continue;
                 }
-                result.push([firstAirport].concat(airports[j]));
+
+                let { data } = await getScheduledFlightsByDate(airportA, airports[j], moment().add(40, 'days').format('YYYY-MM-DD'))
+                let km = await getDistanceFromLatLonInKm(airportA, airports[j])
+
+                result.push({
+                    ...data,
+                    distance: {
+                        value: km,
+                        type: 'KM'
+                    }
+                })
+
             }
         }
     }
+    console.log(result);
     return result;
 }
 
-async function getScheduledFlights(airportA, airportB, data) {
+async function getScheduledFlightsByDate(airportA, airportB, data) {
     try {
+
+        return await fetchMockupAirPortAPI('search').get(`${airportA.iata}/${airportB.iata}/${data}`)
 
     } catch (error) {
         throw error;
