@@ -9,12 +9,14 @@ async function start() {
     const airportsCombination = await getCombinationAirPort()
     const flights = await getScheduledFlights(airportsCombination)
 
+    console.log(airportsCombination);
 }
 
 async function getScheduledFlights(airportsCombination = []) {
     for (const combination of airportsCombination) {
 
         for (const airport of combination) {
+            // console.log(airport);
             // const { data } = fetchMockupAirPort('search').get(`${airport.}`)
         }
 
@@ -26,7 +28,7 @@ async function getCombinationAirPort() {
         const { data } = await fetchMockupAirPort('airports').get()
 
         const airports = convertObjectToArray(data)
-        const combinationsAirPorts = permutations(airports.slice(0, 2))
+        const combinationsAirPorts = combineAirports(airports.slice(0, 3))
 
         return combinationsAirPorts;
 
@@ -35,20 +37,20 @@ async function getCombinationAirPort() {
     }
 }
 
-function permutations(airports) {
+function combineAirports(airports) {
     let result = [];
 
     if (airports.length === 0) {
         result.push([]);
     } else {
-
         for (var i = 0; i < airports.length; i++) {
             let firstAirport = airports[i];
-            let otherAirport = airports.slice(0, i).concat(airports.slice(i + 1));
-            let otherPermutations = permutations(otherAirport);
 
-            for (var j = 0; j < otherPermutations.length; j++) {
-                result.push([firstAirport].concat(otherPermutations[j]));
+            for (var j = 0; j < airports.length; j++) {
+                if (airports[j].iata === firstAirport.iata) {
+                    continue;
+                }
+                result.push([firstAirport].concat(airports[j]));
             }
         }
     }
