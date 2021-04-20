@@ -8,7 +8,7 @@ start()
 
 async function start() {
 
-    const { data } = await fetchMockupAirPortAPI('airports').get()
+    const {data} = await fetchMockupAirPortAPI('airports').get()
     const airports = convertObjectToArray(data)
     const combinationsAirPorts = await flightProcessor(airports.slice(0, 3))
     console.log(combinationsAirPorts);
@@ -19,46 +19,57 @@ async function start() {
 async function flightProcessor(airports) {
     try {
 
-    } catch (error) {
+        let result = [];
 
-    }
-    let result = [];
+        if (airports.length === 0) {
+            result.push([]);
+        } else {
+            for (var i = 0; i < airports.length; i++) {
+                let airportA = airports[i];
 
-    if (airports.length === 0) {
-        result.push([]);
-    } else {
-        for (var i = 0; i < airports.length; i++) {
-            let airportA = airports[i];
+                for (var j = 0; j < airports.length; j++) {
 
-            for (var j = 0; j < airports.length; j++) {
+                    if (airports[j].iata === airportA.iata) {
+                        continue;
+                    }
 
-                if (airports[j].iata === airportA.iata) {
-                    continue;
+                    var {data} = await getScheduledFlightsByDate(airportA, airports[j], moment().add(40, 'days').format('YYYY-MM-DD'))
+                    var distanceBetweenAirports = getDistanceFromLatLonInKm(airportA, airports[j])
+
+
+                    data.options.forEach(option => {
+                        let flightHours = calculateFlightDurationInHours(option.departure_time, option.arrival_time)
+
+                        option.average_speed = {
+                            value: calculateAverageSpeed(flightHours, distanceBetweenAirports),
+                            type: 'KM/h'
+                        }
+
+                        option.fare_per_KM = {
+                            value: calculatepricePerFare(option.fare_price, distanceBetweenAirports),
+                            type: 'R$'
+                        }
+                    });
                 }
 
-                let { data } = await getScheduledFlightsByDate(airportA, airports[j], moment().add(40, 'days').format('YYYY-MM-DD'))
-                let km = await getDistanceFromLatLonInKm(airportA, airports[j])
+                data.distance = {
+                    value: distanceBetweenAirports,
+                    type: 'KM'
+                }
 
-                result.push({
-                    ...data,
-                    distance: {
-                        value: km,
-                        type: 'KM'
-                    }
-                })
-
+                result.push(data)
             }
         }
+        return result;
+
+    } catch (error) {
+        console.log(error);
     }
-    console.log(result);
-    return result;
 }
 
 async function getScheduledFlightsByDate(airportA, airportB, data) {
     try {
-
         return await fetchMockupAirPortAPI('search').get(`${airportA.iata}/${airportB.iata}/${data}`)
-
     } catch (error) {
         throw error;
     }
@@ -75,7 +86,7 @@ function convertObjectToArray(airports) {
     return result;
 }
 
-function getDistanceFromLatLonInKm(pointA = { lat: '', lon: '' }, pointB = { lat: '', lon: '' }) {
+function getDistanceFromLatLonInKm(pointA = {lat: '', lon: ''}, pointB = {lat: '', lon: ''}) {
     const raio = 6371; // Raio da Terra em KM
     let dLat = deg2rad(pointB.lat - pointA.lat);
     let dLon = deg2rad(pointB.lat - pointA.lat);
@@ -120,3 +131,19 @@ function fetchMockupAirPortAPI(uri) {
         console.error(error)
     }
 }
+
+function calculateAverageSpeed(hours, distance) {
+    return Math.round(distance / hours)
+}
+
+function calculatepricePerFare(price, distance) {
+    return (price / distance).toFixed(2)
+}
+
+function calculateFlightDurationInHours(start, end) {
+    let departureTime = moment(start);
+    let arrivalTime = moment(end)
+    const duration = moment.duration(arrivalTime.diff(departureTime));
+    return duration.asHours()
+}
+
