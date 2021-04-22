@@ -4,4 +4,5 @@ CREATE TABLE IF NOT EXISTS schedule_flight  (
     distance INTEGER,
     min_value FLOAT,
     aircraft_model VARCHAR (50)
+    create_at VARCHAR DATE
 )
