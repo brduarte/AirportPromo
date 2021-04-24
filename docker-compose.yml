@@ -4,7 +4,7 @@ services:
 
   postgres:
     image: postgres:13.1
-    container_name: 'crud-car-db'
+    container_name: 'airport-promo-db'
     environment:
       POSTGRES_USER: ${DB_USERNAME:-postgres}
       POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
