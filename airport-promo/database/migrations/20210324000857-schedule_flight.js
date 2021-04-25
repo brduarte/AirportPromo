@@ -18,7 +18,7 @@ module.exports = {
       distance: {
         type: Sequelize.FLOAT,
       },
-      minValue: {
+      min_value: {
         type: Sequelize.FLOAT
       },
       aircrafit_model: {

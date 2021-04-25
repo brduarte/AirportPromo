@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     departure_iata: DataTypes.STRING,
     arrival_iata: DataTypes.STRING,
     distance: DataTypes.STRING,
-    minValue: DataTypes.STRING,
+    min_value: DataTypes.STRING,
     aircrafit_model: DataTypes.STRING,
   }, {
     sequelize,
