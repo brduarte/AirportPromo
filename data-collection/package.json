@@ -1,21 +1,16 @@
 {
-  "name": "server-airport-promo",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "data-collection",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node ./bin/www"
   },
-  "type": "commonjs",
-  "keywords": [],
-  "author": "brduarte",
-  "license": "ISC",
   "dependencies": {
-    "axios": "^0.21.1",
-    "dotenv": "^8.2.0",
-    "esm": "^3.2.25",
-    "moment": "^2.29.1",
-    "pg": "^8.6.0"
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "morgan": "~1.9.1",
+    "twig": "~0.10.3"
   }
 }

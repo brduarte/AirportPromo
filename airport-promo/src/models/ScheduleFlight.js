@@ -19,11 +19,11 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
       type: DataTypes.INTEGER
     },
-    departureIata: DataTypes.STRING,
-    arrivalIata: DataTypes.STRING,
+    departure_iata: DataTypes.STRING,
+    arrival_iata: DataTypes.STRING,
     distance: DataTypes.STRING,
     minValue: DataTypes.STRING,
-    aircrafitModel: DataTypes.STRING,
+    aircrafit_model: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'ScheduleFlight',
