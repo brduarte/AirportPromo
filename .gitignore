@@ -1,3 +1,3 @@
-./server/.env
+data-collection/.env
 .idea
 .docker/postgres/pgdata

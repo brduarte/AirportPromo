@@ -16,7 +16,7 @@ flightProcessor()
 async function flightProcessor() {
   try {
     const {data} = await fetchMockupAirPortAPI('airports').get()
-    const airports = Object.values(data).slice(0, 3)
+    const airports = Object.values(data).slice(0, 40)
 
     for (const airportA of airports) {
       for (const airportB of airports) {
@@ -26,10 +26,11 @@ async function flightProcessor() {
           data: scheduledFlights,
           request: {res}
         } = await getScheduledFlightsByDate(airportA, airportB, moment().add(40, 'days').format('YYYY-MM-DD'))
+
+        if (!scheduledFlights.options.length) continue;
         scheduledFlights.endpoint_url = res.responseUrl
 
         let {rows} = await getFlightScheduleByEndpoint(scheduledFlights.endpoint_url)
-
         if (rows.length) continue;
 
         scheduledFlights.lowerOption = scheduledFlights.options[0];
@@ -57,10 +58,11 @@ async function flightProcessor() {
           delete scheduledFlights.options
         });
 
-        saveScheduleFlight(scheduledFlights)
+        await saveScheduleFlight(scheduledFlights)
       }
     }
   } catch (error) {
+    console.log(error)
     throw error
   }
 }
