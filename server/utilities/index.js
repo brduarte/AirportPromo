@@ -1,5 +1,5 @@
-import axios from "axios";
-import moment from "moment";
+const axios = require('axios')
+const moment = require('moment')
 
 async function getScheduledFlightsByDate(airportA, airportB, data) {
   try {
@@ -70,7 +70,7 @@ function calculateFlightDurationInHours(start, end) {
   return duration.asHours()
 }
 
-export {
+module.exports ={
   fetchMockupAirPortAPI,
   calculateAverageSpeed,
   calculatepricePerFare,
