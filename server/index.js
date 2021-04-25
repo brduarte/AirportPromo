@@ -53,7 +53,6 @@ async function flightProcessor() {
         });
 
         saveScheduleFlight(scheduledFlights)
-
       }
     }
   } catch (error) {
