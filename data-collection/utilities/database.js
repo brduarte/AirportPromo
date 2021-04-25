@@ -3,9 +3,9 @@ const {Client} = require('pg')
 async function saveScheduleFlight(scheduleFlight) {
   try {
     let client = await createConnection()
-    return await client.query(`INSERT INTO schedule_flight(departure_iata, arrival_iata, endpoint_url, distance,
-                                                           min_value, aircraft_model)
-                               VALUES ($1, $2, $3, $4, $5, $6)`, [
+    let data = await client.query(`INSERT INTO schedule_flight(departure_iata, arrival_iata, endpoint_url, distance,
+                                                               min_value, aircraft_model)
+                                   VALUES ($1, $2, $3, $4, $5, $6)`, [
       scheduleFlight.summary.from.iata,
       scheduleFlight.summary.to.iata,
       scheduleFlight.endpoint_url,
@@ -13,6 +13,8 @@ async function saveScheduleFlight(scheduleFlight) {
       scheduleFlight.lowerOption.fare_price,
       scheduleFlight.lowerOption.aircraft.model
     ])
+    client.end()
+    return data
   } catch (error) {
     throw error.message
   }
@@ -21,12 +23,14 @@ async function saveScheduleFlight(scheduleFlight) {
 async function getFlightScheduleByEndpoint(endPoint) {
   try {
     let client = await createConnection()
-    return await client.query({
-      text: `SELECT  endpoint_url
+    let data = await client.query({
+      text: `SELECT endpoint_url
              FROM schedule_flight
              WHERE endpoint_url = $1`,
       values: [endPoint],
     })
+    client.end()
+    return data;
   } catch (error) {
     throw error.message
   }
