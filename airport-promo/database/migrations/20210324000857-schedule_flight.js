@@ -1,18 +1,18 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('ScheduleFlight', {
+    await queryInterface.createTable('schedule_flight', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      departureIata: {
+      departure_iata: {
         allowNull: false,
         type: Sequelize.STRING,
       },
-      arrivalIata: {
+      arrival_iata: {
         type: Sequelize.STRING,
       },
       distance: {
@@ -21,23 +21,23 @@ module.exports = {
       minValue: {
         type: Sequelize.FLOAT
       },
-      aircrafitModel: {
+      aircrafit_model: {
         type: Sequelize.STRING
       },
-      endpointUrl: {
+      endpoint_url: {
         type: Sequelize.STRING(200)
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE
       }
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('ScheduleFlight');
+    await queryInterface.dropTable('schedule_flight');
   }
 };
