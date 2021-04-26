@@ -50,14 +50,13 @@ $ npm start
 
 - Depois de configurar o sistema, basta rodar o comando abaixo.
 ```console
-$ npm run test
+$ npm run start:script
 ```
 
 ## 📝 Documentação 
 
 - [Documentação da API](https://documenter.getpostman.com/view/5528641/TzCHAqDw)
 - [Como Instalar o Docker/Docker Compose](https://docs.docker.com/engine/install/)
-- [Mocha](https://mochajs.org/)
 - [PostgreSQL](https://www.postgresql.org/)
 - [Node.js](https://nodejs.org/en/docs/)
 - [Express](https://expressjs.com/pt-br/)
