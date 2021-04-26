@@ -33,6 +33,10 @@ $ cp -v .env.example .env
 $ docker-compose up postgres
 ```
 
+4. Execute o projeto.
+```console
+$ npx sequelize db:migrate
+```
 
 4. Execute o projeto.
 ```console
