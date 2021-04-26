@@ -1,21 +1,21 @@
 const dotenv = require('dotenv')
 const moment = require('moment')
-const {saveScheduleFlight, getFlightScheduleByEndpoint} = require('./utilities/database')
+const {ScheduleFlight} = require('../models')
+const {getAirPort, getScheduledFlightsByDate} = require('../servicess/mockupAirportAPI')
 const {
-  fetchMockupAirPortAPI,
-  getScheduledFlightsByDate,
   getDistanceFromLatLonInKm,
   calculateFlightDurationInHours,
   calculateAverageSpeed,
   calculatepricePerFare
-} = require('./utilities/index')
+} = require('../utilities')
 
 dotenv.config()
+
 flightProcessor()
 
 async function flightProcessor() {
   try {
-    const {data} = await fetchMockupAirPortAPI('airports').get()
+    const {data} = await getAirPort()
     const airports = Object.values(data).slice(0, 40)
 
     for (const airportA of airports) {
@@ -30,8 +30,11 @@ async function flightProcessor() {
         if (!scheduledFlights.options.length) continue;
         scheduledFlights.endpoint_url = res.responseUrl
 
-        let {rows} = await getFlightScheduleByEndpoint(scheduledFlights.endpoint_url)
-        if (rows.length) continue;
+        let schedule = await ScheduleFlight.findOne({
+          where: {endpoint_url: scheduledFlights.endpoint_url}
+        })
+
+        if (schedule !== null) continue;
 
         scheduledFlights.lowerOption = scheduledFlights.options[0];
         scheduledFlights.summary.distance = {
@@ -58,11 +61,18 @@ async function flightProcessor() {
           delete scheduledFlights.options
         });
 
-        await saveScheduleFlight(scheduledFlights)
+        ScheduleFlight.create({
+          departure_iata: scheduledFlights.summary.from.iata,
+          arrival_iata: scheduledFlights.summary.to.iata,
+          distance: scheduledFlights.summary.distance.value,
+          departure_state: scheduledFlights.summary.from.state,
+          min_value: scheduledFlights.lowerOption.fare_price,
+          aircraft_model: scheduledFlights.lowerOption.aircraft.model,
+          endpoint_url: scheduledFlights.endpoint_url
+        })
       }
     }
   } catch (error) {
-    console.log(error)
     throw error
   }
 }

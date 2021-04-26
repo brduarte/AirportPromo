@@ -1,13 +1,4 @@
-const axios = require('axios')
 const moment = require('moment')
-
-async function getScheduledFlightsByDate(airportA, airportB, data) {
-  try {
-    return await fetchMockupAirPortAPI('search').get(`${airportA.iata}/${airportB.iata}/${data}`)
-  } catch (error) {
-    throw error;
-  }
-}
 
 function getDistanceFromLatLonInKm(pointA = {lat: '', lon: ''}, pointB = {lat: '', lon: ''}) {
   const raio = 6371; // Raio da Terra em KM
@@ -29,32 +20,6 @@ function getDistanceFromLatLonInKm(pointA = {lat: '', lon: ''}, pointB = {lat: '
   return Math.round(distancia);
 }
 
-function fetchMockupAirPortAPI(uri) {
-  try {
-    let api = axios.create({
-      baseURL: `${process.env.API_MOCKUP_BASE_URL}/${uri}/${process.env.API_MOCKUP_AIRPORT_KEY}`,
-    })
-
-    api.interceptors.request.use(config => {
-      config.headers = {
-        ...config.headers,
-      };
-
-      config.auth = {
-        username: process.env.API_MOCKUP_AIRPORT_USERNAME,
-        password: process.env.API_MOCKUP_AIRPORT_PASSWORD
-      }
-
-      return config;
-    });
-
-    return api
-
-  } catch (error) {
-    throw error
-  }
-}
-
 function calculateAverageSpeed(hours, distance) {
   return Math.round(distance / hours)
 }
@@ -71,10 +36,8 @@ function calculateFlightDurationInHours(start, end) {
 }
 
 module.exports ={
-  fetchMockupAirPortAPI,
   calculateAverageSpeed,
   calculatepricePerFare,
   getDistanceFromLatLonInKm,
-  getScheduledFlightsByDate,
   calculateFlightDurationInHours
 }
