@@ -13,6 +13,21 @@ async function getHigherPrices(limit) {
   }
 }
 
+async function getStateWithMoreAirports(){
+  try {
+    return await ScheduleFlight.count({
+      attributes: ['departure_state'],
+      group: 'departure_state',
+      order: [
+        ['min_value', 'DESC']
+      ],
+    })
+  } catch (error) {
+    throw error
+  }
+}
+
 module.exports = {
-  getHigherPrices
+  getHigherPrices,
+  getStateWithMoreAirports
 }

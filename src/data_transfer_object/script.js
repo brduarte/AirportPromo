@@ -65,6 +65,7 @@ async function flightProcessor() {
           departure_iata: scheduledFlights.summary.from.iata,
           arrival_iata: scheduledFlights.summary.to.iata,
           distance: scheduledFlights.summary.distance.value,
+          departure_state: scheduledFlights.summary.from.state,
           min_value: scheduledFlights.lowerOption.fare_price,
           aircraft_model: scheduledFlights.lowerOption.aircraft.model,
           endpoint_url: scheduledFlights.endpoint_url

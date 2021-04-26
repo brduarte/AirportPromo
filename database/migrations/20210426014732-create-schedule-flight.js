@@ -14,6 +14,9 @@ module.exports = {
       arrival_iata: {
         type: Sequelize.STRING
       },
+      departure_state: {
+        type: Sequelize.STRING
+      },
       distance: {
         type: Sequelize.FLOAT
       },

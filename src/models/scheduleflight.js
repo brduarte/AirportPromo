@@ -16,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
     departure_iata: DataTypes.STRING,
     arrival_iata: DataTypes.STRING,
     distance: DataTypes.FLOAT,
+    departure_state: DataTypes.STRING,
     min_value: DataTypes.FLOAT,
     aircraft_model: DataTypes.STRING,
     endpoint_url: DataTypes.STRING
