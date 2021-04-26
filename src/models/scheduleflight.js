@@ -23,7 +23,6 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'ScheduleFlight',
     tableName: 'schedule_flights',
-    freezeTableName: false
   });
   return ScheduleFlight;
 };

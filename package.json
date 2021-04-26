@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "start:dev": "nodemon ./bin/www"
+    "start:dev": "nodemon ./bin/www",
+    "start:script": "node ./src/data_transfer_object/script.js"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^8.2.0",
@@ -15,6 +17,7 @@
     "express": "~4.16.1",
     "express-validator": "^6.10.0",
     "http-errors": "^1.8.0",
+    "moment": "^2.29.1",
     "morgan": "~1.9.1",
     "pg": "^8.5.1",
     "sequelize": "^6.6.2",

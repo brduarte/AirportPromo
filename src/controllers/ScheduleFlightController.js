@@ -2,9 +2,7 @@ const {ScheduleFlight} = require('../models')
 
 async function getLongerFlights(request, response) {
   try {
-    console.log(ScheduleFlight.findAll())
-    // let test = await ScheduleFlight.findAll()
-    // console.log(test)
+    let test = await ScheduleFlight.findAll()
     response.json({
       'h1': 'oi bruno'
     })
