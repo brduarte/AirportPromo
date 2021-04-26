@@ -2,11 +2,16 @@
 
 {% block body %}
 
-  <div class="state-with-more-airport">
-    {{ stateWithMoreAirports.departure_state }}
+  <div class="table-display">
+    <h2>Estado Com Mais Aeroportos</h2>
+    <div class="state-with-more-airport">
+      {{ stateWithMoreAirports.departure_state }}
+    </div>
   </div>
 
   <div class="table-display">
+    <h2>Aeroportos Caros</h2>
+
     <table class="styled-table">
       <thead>
       <tr>
@@ -27,6 +32,31 @@
           <td>{{ higherPrice.distance }}</td>
           <td>{{ higherPrice.min_value }}</td>
           <td>{{ higherPrice.aircraft_model }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="table-display">
+    <h2>Rotas</h2>
+    <table class="styled-table">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Partida</th>
+        <th>Destino Mais Curto</th>
+        <th>Destino Mais Logo</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for scheduleDetailFlight in scheduleDetailFlights %}
+        <tr>
+          <td>{{ scheduleDetailFlight.id }}</td>
+          <td>{{ scheduleDetailFlight.departure_iata }}</td>
+          <td>{{ scheduleDetailFlight.min_distance.departure_iata }}</td>
+          <td>{{ scheduleDetailFlight.max_distance.departure_iata }}</td>
+
         </tr>
       {% endfor %}
       </tbody>
