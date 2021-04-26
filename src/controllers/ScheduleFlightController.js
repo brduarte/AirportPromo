@@ -1,13 +1,12 @@
 const {ScheduleFlight} = require('../models')
+const {getHigherPrices} = require('../servicess/scheduleFlight')
 
 async function getLongerFlights(request, response) {
   try {
-    let test = await ScheduleFlight.findAll()
-    response.json({
-      'h1': 'oi bruno'
-    })
+    let higherPrices = await getHigherPrices(30)
+    response.render('higherPrices/index', {higherPrices});
   } catch (error) {
-    console.log(error)
+    throw error
   }
 }
 
