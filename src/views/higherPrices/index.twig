@@ -1,27 +1,32 @@
 {% extends 'layout.twig' %}
 
 {% block body %}
+  <div class="table-display">
+    <table class="styled-table">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Partida</th>
+        <th>Destino</th>
+        <th>Distancia</th>
+        <th>Valor</th>
+        <th>Modelo da Aeronave</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for higherPrice in higherPrices %}
+        <tr>
+          <td>{{ higherPrice.id }}</td>
+          <td>{{ higherPrice.departure_iata }}</td>
+          <td>{{ higherPrice.arrival_iata }}</td>
+          <td>{{ higherPrice.distance }}</td>
+          <td>{{ higherPrice.min_value }}</td>
+          <td>{{ higherPrice.aircraft_model }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
 
-  <table>
-    <tr>
-      <th>ID</th>
-      <th>Partida</th>
-      <th>Destino</th>
-      <th>Distancia</th>
-      <th>Valor</th>
-      <th>Modelo da Aeronave</th>
-    </tr>
-    {% for higherPrice in higherPrices %}
-     <tr>
-       <td>{{ higherPrice.id }}</td>
-       <td>{{ higherPrice.departure_iata }}</td>
-       <td>{{ higherPrice.arrival_iata }}</td>
-       <td>{{ higherPrice.distance }}</td>
-       <td>{{ higherPrice.min_value }}</td>
-       <td>{{ higherPrice.aircraft_model }}</td>
-     </tr>
-    {% endfor %}
-
-  </table>
 
 {% endblock %}
