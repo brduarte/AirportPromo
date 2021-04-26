@@ -15,7 +15,7 @@ Assegure-se de ter [Node.js](http://nodejs.org/) instalado
 
 ```console
 $ git clone https://github.com/brduarte/AirportPromo.git 
-$ cd CrudCar
+$ cd AirportPromo
 $ npm install
 ```
 
