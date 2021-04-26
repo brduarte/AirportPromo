@@ -21,7 +21,7 @@ module.exports = {
       min_value: {
         type: Sequelize.FLOAT
       },
-      aircrafit_model: {
+      aircraft_model: {
         type: Sequelize.STRING
       },
       endpoint_url: {
