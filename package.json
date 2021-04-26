@@ -21,9 +21,7 @@
     "morgan": "~1.9.1",
     "pg": "^8.5.1",
     "sequelize": "^6.6.2",
-    "twig": "~0.10.3"
-  },
-  "devDependencies": {
+    "twig": "~0.10.3",
     "sequelize-cli": "^6.2.0"
   }
 }
