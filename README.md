@@ -43,7 +43,8 @@ $ npm start
 
         ⚠️ OBS: A API será executada na porta parametrizada na variável `APP_PORT` do projeto. 
 
-![image](https://user-images.githubusercontent.com/29002558/112572587-3873fb00-8dc9-11eb-9312-18d29fc82591.png)
+![image](https://user-images.githubusercontent.com/29002558/116156101-6fd41100-a6c1-11eb-8c03-e99a0ef095e4.png)
+
 
 
 ## 🧪 Executando Script de Coleta de Dados
