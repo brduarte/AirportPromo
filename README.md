@@ -62,7 +62,3 @@ $ npm run start:script
 - [Node.js](https://nodejs.org/en/docs/)
 - [Express](https://expressjs.com/pt-br/)
 
-## Autor
-
-| [<img width="125px" src="https://avatars2.githubusercontent.com/u/29002558?v=4"><br><sub>@brduarte</sub>](https://github.com/brduarte)|
-| :---: |
