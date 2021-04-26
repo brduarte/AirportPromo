@@ -1,4 +1,4 @@
-const ScheduleFlight = require('../models/ScheduleFlight')
+const {ScheduleFlight} = require('../models')
 
 async function getLongerFlights(request, response) {
   try {
@@ -9,7 +9,7 @@ async function getLongerFlights(request, response) {
       'h1': 'oi bruno'
     })
   } catch (error) {
-    response.json(error.message)
+    console.log(error)
   }
 }
 
