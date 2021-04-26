@@ -1,11 +1,10 @@
-# 🚗 CrudCar
+# 📍 AirportPromo
 
 ## ⚒️ Ferramentas Utilizadas 
   
   - Node.js
   - Express
   - ORM Sequelize 
-  - Mocha
   - PostgreSQL
 
 ## 👨‍💻 Executando Manualmente
@@ -15,7 +14,7 @@ Assegure-se de ter [Node.js](http://nodejs.org/) instalado
 1. Clone seu repositório e instale as dependências  
 
 ```console
-$ git clone https://github.com/brduarte/CrudCar.git 
+$ git clone https://github.com/brduarte/AirportPromo.git 
 $ cd CrudCar
 $ npm install
 ```
@@ -47,7 +46,7 @@ $ npm start
 ![image](https://user-images.githubusercontent.com/29002558/112572587-3873fb00-8dc9-11eb-9312-18d29fc82591.png)
 
 
-## 🧪 Executando Testes
+## 🧪 Executando Script de Coleta de Dados
 
 - Depois de configurar o sistema, basta rodar o comando abaixo.
 ```console
