@@ -60,7 +60,6 @@ $ npm run start:script
 
 ## 📝 Documentação 
 
-- [Documentação da API](https://documenter.getpostman.com/view/5528641/TzCHAqDw)
 - [Como Instalar o Docker/Docker Compose](https://docs.docker.com/engine/install/)
 - [PostgreSQL](https://www.postgresql.org/)
 - [Node.js](https://nodejs.org/en/docs/)
