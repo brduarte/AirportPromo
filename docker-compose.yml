@@ -14,7 +14,6 @@ services:
       - ${DB_PORT:-5432}:5432
     volumes:
       - ./.docker/postgres:/var/lib/postgresql/data
-      - ./.docker/postgres/schema.sql:/docker-entrypoint-initdb.d/schema.sql
     networks:
       - network-crud-car
 
